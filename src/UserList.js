@@ -1,11 +1,19 @@
 import * as React from 'react';
 
 function User(props) {
-    const { user, onRemove } = props;
-    const { id, username, email} = user;
+    const { user, onRemove, onToggle } = props;
+    const { id, username, email, active} = user;
     return (
         <div>
-            <b>{username}</b> <span>{email}</span> 
+            <b style={{
+                    color: active ? 'green' : 'black',
+                    cursor: 'pointer'
+                }}
+                onClick={() => onToggle(id)}
+            >
+                {username}
+            </b>&nbsp;
+            <span>{email}</span> 
             <button onClick={() => onRemove(id)}>Delete</button>
         </div>
     );
@@ -13,7 +21,7 @@ function User(props) {
 
 
 function UserList(props) {
-    const { users, onRemove } = props;
+    const { users, onRemove, onToggle } = props;
     return (
         <div>
             {
@@ -22,6 +30,7 @@ function UserList(props) {
                         key={user.id} 
                         user={user} 
                         onRemove={onRemove}
+                        onToggle={onToggle}
                         />
                 })
             }
