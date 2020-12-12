@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import CreateUser from './CreateUser';
 import UserList from './UserList';
 
 function App() {
-  const users = [
+  const [users, setUsers] = useState([
     {
         id: 1,
         username: 'hongkeun',
@@ -18,17 +19,58 @@ function App() {
         username: 'sixshopKeuni',
         email: 'widjai@123.com',
     },
-  ];
+  ]);
+
+  const [ inputs, setInputs ] = useState({
+    username: '',
+    email: '',
+  });
+
+  const { username, email } = inputs;
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    })
+  }
+
   const userLength = users.length + 1
   const nextId = useRef(userLength);
   
   const onCreate = () => {
-    console.log(nextId.current);
     nextId.current += 1;
+
+    const user = {
+      id: nextId.current,
+      username,
+      email,
+    }
+
+    // setUsers([...users, user]);
+    setUsers(users.concat(user));
+
+    setInputs({
+      username: '',
+      email: '',
+    });
+  }
+
+  const onRemove = id => {
+    setUsers(users.filter(user => user.id !== id));
   }
 
   return (
-    <UserList users={users} />
+    <>
+      <CreateUser 
+        username={username} 
+        email={email} 
+        onChange={onChange} 
+        onCreate={onCreate}
+        />
+      <UserList users={users} onRemove={onRemove} />
+    </>
   );
 }
 
