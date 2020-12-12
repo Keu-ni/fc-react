@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 
-function User(props) {
+const User = React.memo(function User(props) {
     const { user, onRemove, onToggle } = props;
     const { id, username, email, active} = user;
 
     useEffect(() => {
-        console.log('미리 설정 됨', user);
+        // console.log('미리 설정 됨', user);
         return () => {
-            console.log('user 값이 바뀌기 전', user);
+            // console.log('user 값이 바뀌기 전', user);
         }
     }, [user]);
     return (
@@ -24,7 +24,7 @@ function User(props) {
             <button onClick={() => onRemove(id)}>Delete</button>
         </div>
     );
-}
+});
 
 
 function UserList(props) {
@@ -45,4 +45,7 @@ function UserList(props) {
     );
 }
 
-export default UserList;
+export default React.memo(
+        UserList, 
+        (prevProps, nextProps) => prevProps.users === nextProps.users
+    );
