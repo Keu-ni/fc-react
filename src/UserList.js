@@ -1,23 +1,5 @@
 import * as React from 'react';
 
-const users = [
-    {
-        id: 1,
-        username: 'hongkeun',
-        email: '123@123.com',
-    },
-    {
-        id: 2,
-        username: 'Keuni',
-        email: 'kenui@123.com',
-    },
-    {
-        id: 3,
-        username: 'sixshopKeuni',
-        email: 'widjai@123.com',
-    },
-];
-
 function User(props) {
     const { user } = props;
     return (
@@ -28,7 +10,8 @@ function User(props) {
 }
 
 
-function UserList() {
+function UserList(props) {
+    const { users } = props;
     return (
         <div>
             {
