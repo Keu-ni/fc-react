@@ -1,7 +1,12 @@
 import * as React from 'react';
 
-function Hello({ name, color }) {
-return <div style={{color}}>{name}</div>;
+function Hello({ name, color, isSpecial }) {
+return (
+    <div style={{color}}>
+        {isSpecial && <b>*</b>}
+        {name}
+    </div>
+    );
 }
 
 Hello.defaultProps = {
