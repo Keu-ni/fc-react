@@ -1,7 +1,11 @@
 import * as React from 'react';
 
-function Hello() {
-    return <div>안녕하세요</div>;
+function Hello({ name, color }) {
+return <div style={{color}}>{name}</div>;
+}
+
+Hello.defaultProps = {
+    name: '이름 없슴'
 }
 
 export default Hello;
