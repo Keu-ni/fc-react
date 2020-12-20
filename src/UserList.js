@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { UserDispatch } from './App';
 
 const User = React.memo(function User(props) {
-    const { user, onRemove, onToggle } = props;
+    const { user } = props;
     const { id, username, email, active} = user;
+    const dispatch = useContext(UserDispatch);
 
     useEffect(() => {
         // console.log('미리 설정 됨', user);
@@ -16,19 +18,25 @@ const User = React.memo(function User(props) {
                     color: active ? 'green' : 'black',
                     cursor: 'pointer'
                 }}
-                onClick={() => onToggle(id)}
+                onClick={() => dispatch({
+                    type: 'TOGGLE_USER',
+                    id
+                })}
             >
                 {username}
             </b>&nbsp;
             <span>{email}</span> 
-            <button onClick={() => onRemove(id)}>Delete</button>
+            <button onClick={() => dispatch({
+                type: 'REMOVE_USER',
+                id
+            })}>Delete</button>
         </div>
     );
 });
 
 
 function UserList(props) {
-    const { users, onRemove, onToggle } = props;
+    const { users } = props;
     return (
         <div>
             {
@@ -36,8 +44,7 @@ function UserList(props) {
                     return <User 
                         key={user.id} 
                         user={user} 
-                        onRemove={onRemove}
-                        onToggle={onToggle}
+                        
                         />
                 })
             }
