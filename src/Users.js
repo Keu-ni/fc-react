@@ -34,11 +34,14 @@ function Users() {
       <ul>
         {users.map((user) => (
           <li key={user.id}>
-            {user.username} ({user.name})
+            {user.username}
+            (
+            {user.name}
+            )
           </li>
         ))}
       </ul>
-      <button onClick={fetchUsers}>다시 불러오기 </button>
+      <button type='button' onClick={fetchUsers}>다시 불러오기 </button>
     </>
   );
 }
