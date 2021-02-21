@@ -4,7 +4,6 @@ import Hello from './Hello';
 function App() {
   return (
     <div >
-      안녕?
       <Hello />
     </div>
   );
